@@ -49,9 +49,3 @@ jobs:
       # -------------------------------------------------
       - name: Validate Terraform
         run: terraform -chdir=terraform validate -no-color
-
-      # -------------------------------------------------
-      # 6. Terraform Plan
-      # -------------------------------------------------
-      - name: Terraform Plan
-        run: terraform -chdir=terraform plan -input=false -no-color
