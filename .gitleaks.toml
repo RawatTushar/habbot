@@ -1,0 +1,10 @@
+title = "Habot Connect Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "habot-api-key"
+description = "Detect hardcoded Habot API keys"
+regex = '''(?i)HABOT_API_KEY\s*=\s*["'][A-Za-z0-9_\-]{20,}["']'''
+keywords = ["HABOT_API_KEY"]
