@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "d0_raw_landing" {
-  name     =             var.bucket_name
+  name     = var.bucket_name
   location = var.region
 
   uniform_bucket_level_access = true
