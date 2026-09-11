@@ -1,0 +1,54 @@
+# ==============================
+# Terraform
+# ==============================
+
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Terraform variable files may contain secrets
+*.tfvars
+*.tfvars.json
+
+# Keep an example variable file if needed
+!terraform/terraform.tfvars.example
+
+# ==============================
+# Python
+# ==============================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# ==============================
+# Django
+# ==============================
+
+*.sqlite3
+media/
+staticfiles/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# ==============================
+# IDE / OS
+# ==============================
+
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,57 @@
+name: Security Gate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  security-gate:
+    name: Security and Quality Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # -------------------------------------------------
+      # 1. Secret Detection
+      # -------------------------------------------------
+      - name: Scan repository for secrets
+        uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------
+      # 2. Terraform Setup
+      # -------------------------------------------------
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+
+      # -------------------------------------------------
+      # 3. Terraform Formatting
+      # -------------------------------------------------
+      - name: Check Terraform formatting
+        run: terraform -chdir=terraform fmt -check -recursive
+
+      # -------------------------------------------------
+      # 4. Terraform Initialization
+      # -------------------------------------------------
+      - name: Initialize Terraform
+        run: terraform -chdir=terraform init -backend=false -input=false
+
+      # -------------------------------------------------
+      # 5. Terraform Validation
+      # -------------------------------------------------
+      - name: Validate Terraform
+        run: terraform -chdir=terraform validate -no-color
+
+      # -------------------------------------------------
+      # 6. Terraform Plan
+      # -------------------------------------------------
+      - name: Terraform Plan
+        run: terraform -chdir=terraform plan -input=false -no-color
