@@ -43,6 +43,11 @@ resource "google_bigquery_table" "student_onboarding" {
       mode = "REQUIRED"
     },
     {
+      name = "email"
+      type = "STRING"
+      mode = "REQUIRED"
+    },
+    {
       name = "region"
       type = "STRING"
       mode = "REQUIRED"
